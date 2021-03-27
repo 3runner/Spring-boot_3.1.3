@@ -1,5 +1,6 @@
 package name.russkikh.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,14 @@ public class User implements UserDetails {
     private String name;
     private String password;
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> roles = new HashSet<>();
+
     public User() {
     }
 
@@ -27,17 +36,18 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String rolesToString() {
+        StringBuffer sb = new StringBuffer("");
+        for (Role r : roles) {
+            sb.append(r.getName() + " ");
+        }
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("User : id = %d, name = %s, password = %s", id, name, password);
     }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles = new HashSet<>();
 
     public long getId() {
         return id;

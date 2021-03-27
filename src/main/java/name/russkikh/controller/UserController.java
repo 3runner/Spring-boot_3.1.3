@@ -3,6 +3,7 @@ package name.russkikh.controller;
 import name.russkikh.model.User;
 import name.russkikh.service.RoleService;
 import name.russkikh.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,16 @@ public class UserController {
     public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+    }
+
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUsername();
+        model.addAttribute("authorizedUser", username);
+        model.addAttribute("userRoles", userService.findUserByName(username).get().rolesToString());
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", new HashSet<>(roleService.findAll()));
     }
 
     @GetMapping("/admin")

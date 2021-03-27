@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <title>Login</title>
 </head>
+
 <body>
-<div>
+
+<div class="container-fluid mt-5">
     <form method="post" action="/login">
-        <input name="j_username"/>
-        <input name="j_password"/>
-        <input type="submit"/>
+        <div class="row justify-content-center">
+            <div class="col-md-auto">
+                <h2><strong>Please sign in</strong></h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="j_username" placeholder="Login"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="j_password" placeholder="Password"/>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            </div>
+        </div>
     </form>
 </div>
+
 </body>
 </html>
