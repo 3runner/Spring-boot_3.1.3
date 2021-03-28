@@ -23,17 +23,16 @@ public class UserController {
     }
 
     @ModelAttribute
-    public void addAttributes(Model model) {
+    private void addAttributes(Model model) {
         String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUsername();
         model.addAttribute("authorizedUser", username);
         model.addAttribute("userRoles", userService.findUserByName(username).get().rolesToString());
-        model.addAttribute("user", new User());
         model.addAttribute("allRoles", new HashSet<>(roleService.findAll()));
     }
 
     @GetMapping("/admin")
-    public String getUserPage(Model model) {
+    public String getUserPage(Model model, @ModelAttribute("user") User user) {
         model.addAttribute("users", userService.findAll());
         return "users";
     }
@@ -52,9 +51,9 @@ public class UserController {
         return "new";
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/user/new")
     public String createNewUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "new";
         }
         userService.save(user);
@@ -68,8 +67,9 @@ public class UserController {
         return "edit";
     }
 
-    @PatchMapping("/user/{id}")
-    public String updateUser(@PathVariable long id, User user, BindingResult bindingResult, Model model) {
+    @PatchMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user,
+                             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             user.setId(id);
             return "edit";
@@ -78,7 +78,7 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable long id, Model model) {
         userService.deleteById(id);
         return "redirect:/admin";

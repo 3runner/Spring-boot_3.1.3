@@ -37,7 +37,7 @@
     <div class="row flex-grow-1">
         <!--sidebar-->
         <div class="col-2 bg-white">
-            <div class="row list-group list-group-flush" th:each="user : ${users}">
+            <div class="row list-group list-group-flush" th:object="${user}">
                 <a th:href="@{/user/{id} (id=${user.getId()})}" class="list-group-item list-group-item-action" th:text="${user.getName()}">value</a>
             </div>
         </div>
