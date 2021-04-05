@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public String getUserPage(Model model, @ModelAttribute("user") User user) {
-        model.addAttribute("users", userService.findAll());
+//        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
@@ -44,36 +44,14 @@ public class UserController {
         return "show";
     }
 
-    @GetMapping("/user/new")
-    public String createNewUser(@ModelAttribute("user") User user,
-                                Model model) {
-        model.addAttribute("allRoles", new HashSet<>(roleService.findAll()));
-        return "new";
-    }
-
     @PostMapping("/user/new")
-    public String createNewUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "new";
-        }
+    public String createNewUser(@ModelAttribute("user") User user, Model model) {
         userService.save(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/user/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
-        model.addAttribute("user", userService.getOne(id));
-        model.addAttribute("allRoles", new HashSet<>(roleService.findAll()));
-        return "edit";
-    }
-
     @PatchMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user,
-                             BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            user.setId(id);
-            return "edit";
-        }
+    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user, Model model) {
         userService.save(user);
         return "redirect:/admin";
     }

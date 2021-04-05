@@ -40,6 +40,7 @@
 
   <properties>
     <spring.boot.version>2.3.9.RELEASE</spring.boot.version>
+    <jackson.version>2.12.1</jackson.version>
   </properties>
 
   <dependencies>
@@ -103,6 +104,13 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.23</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
   </dependencies>
 
 </project>
