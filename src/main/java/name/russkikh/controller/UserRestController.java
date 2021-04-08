@@ -1,7 +1,6 @@
 package name.russkikh.controller;
 
 import name.russkikh.model.User;
-import name.russkikh.service.RoleService;
 import name.russkikh.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +11,9 @@ import java.util.List;
 @RequestMapping("/api/rest")
 public class UserRestController {
     private UserService userService;
-    private RoleService roleService;
 
-    public UserRestController(UserService userService, RoleService roleService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,7 +22,6 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public User getOne(@PathVariable long id) {
         return userService.findById(id).get();
     }

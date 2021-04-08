@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 
     <meta charset="UTF-8">
     <title>All users</title>
@@ -38,26 +36,20 @@
     <div class="row flex-grow-1">
         <!--sidebar-->
         <div class="col-2 bg-white">
-            <table>
-                <tbody id="">
+            <div class="row list-group list-group-flush" id="sidebar">
 
-                </tbody>
-            </table>
-            <!--            <div class="row list-group list-group-flush" th:each="user : ${users}">-->
-            <!--                <a th:href="@{/user/{id} (id=${user.getId()})}" class="list-group-item list-group-item-action"-->
-            <!--                   th:text="${user.getName()}">value</a>-->
-            <!--            </div>-->
+            </div>
         </div>
 
         <!-- Right side part -->
         <div class="col-10 bg-light">
             <h2 class="mt-3">Admin panel</h2><br/>
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" id="tabList">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#allUsersTable" role="tab">User table</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#newUserPage" role="tab">New user</a>
+                    <a class="nav-link" data-toggle="tab" href="#newUserPage" role="tab" id="newBtn">New user</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -71,14 +63,8 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <table class="table table-striped border">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Login</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>
-                                    </tr>
+                                    <thead id="tableHead">
+
                                     </thead>
                                     <tbody id="data">
 
@@ -90,7 +76,7 @@
                 </div>
                 <!--New user-->
                 <div role="tabpanel" class="tab-pane fade" id="newUserPage">
-                    <form id="newUserForm">
+                    <form id="newUserForm" name="addUserForm">
                         <div class="row justify-content-center pt-3 text-center font-weight-bold">
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -100,20 +86,17 @@
                                 <div class="form-group">
                                     <label for="newPassword">Password</label>
                                     <input type="password" class="form-control" id="newPassword"
-                                           placeholder="Enter password">
+                                           placeholder="Enter password" autocomplete="off">
                                 </div>
                                 <div>
                                     <label for="newRoles">Role</label>
                                     <select class="custom-select" multiple size="3" id="newRoles">
-                                        <option th:each="role : ${allRoles}"
-                                                th:text="${role.getName()}"
-                                                th:value="${role.getId()}">
-                                            value
-                                        </option>
+                                        <option>Admin</option>
+                                        <option>User</option>
                                     </select>
                                 </div>
                                 <div class="pt-3">
-                                    <button type="submit" class="btn btn-success">Add new user</button>
+                                    <button type="submit" class="btn btn-success" id="newUserBtn">Add new user</button>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +137,7 @@
 
                 <div class="form-group">
                     <label for="passwordEdit" class="col-form-label">Password</label>
-                    <input type="password" class="form-control"
+                    <input type="password" class="form-control" autocomplete="off"
                            id="passwordEdit"
                            name="password">
                 </div>
@@ -162,13 +145,8 @@
                 <div>
                     <label>Role</label>
                     <select class="custom-select" multiple size="3" name="roles" id="rolesEdit">
-                        <th:block th:each="role : ${allRoles}">
-                            <option th:text="${role.getName()}"
-                                    th:value="${role.getId()}"
-                            >
-                                value
-                            </option>
-                        </th:block>
+                            <option>Admin</option>
+                            <option>User</option>
                     </select>
                 </div>
             </div>
@@ -211,7 +189,7 @@
 
                 <div class="form-group">
                     <label for="passwordDelete" class="col-form-label">Password</label>
-                    <input type="password" class="form-control" disabled
+                    <input type="password" class="form-control" disabled autocomplete="off"
                            id="passwordDelete"
                            name="password">
                 </div>
@@ -219,13 +197,8 @@
                 <div>
                     <label>Role</label>
                     <select class="custom-select" multiple size="3" name="roles" id="rolesDelete" disabled>
-                        <th:block th:each="role : ${allRoles}">
-                            <option th:text="${role.getName()}"
-                                    th:value="${role.getId()}"
-                            >
-                                value
-                            </option>
-                        </th:block>
+                            <option>Admin</option>
+                            <option>User</option>
                     </select>
                 </div>
             </div>

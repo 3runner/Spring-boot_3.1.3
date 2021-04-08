@@ -4,18 +4,23 @@ const password = document.getElementById("newPassword");
 const roles = document.getElementById("newRoles");
 
 function rolesSelected(roles) {
-    let select1 = roles;
-    let selectedArr = [];
+    let id;
+    let resultRoles = [];
 
-    for (let i = 0; i < select1.length; i++) {
-        if (select1.options[i].selected) {
-            let selectedHsh = {};
-            selectedHsh['id'] = +select1.options[i].value;
-            selectedHsh['name'] = select1.options[i].id;
-            selectedArr.push(selectedHsh);
-        }
+    if (roles.value === 'Admin') {
+        id = 1;
     }
-    return selectedArr;
+    if (roles.value === 'User') {
+        id = 2;
+    }
+    if (roles.value.length === 2) {
+        resultRoles = [{'id': 1, 'name': 'Admin', 'authority': 'Admin'},
+            {'id': 2, 'name': 'User', 'authority': 'User'}];
+    } else {
+        resultRoles = [{'id': id, 'name': roles.value, 'authority': roles.value}];
+    }
+
+    return resultRoles;
 }
 
 roles.addEventListener('click', () => {
@@ -23,6 +28,7 @@ roles.addEventListener('click', () => {
 })
 
 addUserForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     fetch("http://localhost:8081/api/rest/new", {
         method: "POST",
         headers: {
@@ -34,9 +40,6 @@ addUserForm.addEventListener('submit', (e) => {
             roles: rolesSelected(roles)
         })
     })
-        .then(res => res.json())
-        .then(data => {
-            const dataArr = [];
-            dataArr.push(data);
-        });
-})
+    $('#tabList li:first-child a').tab('show');
+    show();
+});
