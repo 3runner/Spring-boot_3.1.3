@@ -9,10 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rest")
-public class UserRestController {
-    private UserService userService;
+public class MyRestController {
+    private final UserService userService;
 
-    public UserRestController(UserService userService) {
+    public MyRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -27,13 +27,13 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User add(@RequestBody User user) {
-        return userService.save(user);
+    public void add(@RequestBody User user) {
+        userService.save(user);
     }
 
     @PatchMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User update(@PathVariable long id, @RequestBody User user) {
-        return userService.save(user);
+    public void update(@PathVariable long id, @RequestBody User user) {
+        userService.save(user);
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -40,6 +40,8 @@ addUserForm.addEventListener('submit', (e) => {
             roles: rolesSelected(roles)
         })
     })
-    $('#tabList li:first-child a').tab('show');
-    show();
+        .then(function () {
+            $('#tabList li:first-child a').tab('show');
+            show();
+        })
 });
