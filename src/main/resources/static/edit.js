@@ -3,7 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         const $modal = $("#editModal")
-        fetch('http://localhost:8081/api/rest/update/' + $modal.find('#idEdit').val(), {
+        fetch('http://localhost:8081/admin/' + $modal.find('#idEdit').val(), {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json'

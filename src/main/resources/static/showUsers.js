@@ -19,8 +19,8 @@ const renderUsers = (users) => {
                 '<a class="list-group-item list-group-item-action sBtn">' + u.name + '</a>'
             );
 
-            const urlEdit = 'api/rest/user/' + u.id;
-            const urlDelete = 'api/rest/user/' + u.id;
+            const urlEdit = 'admin/get_user/' + u.id;
+            const urlDelete = 'admin/get_user/' + u.id;
             const $temp = $('<tr>' +
                 '<td>' + u.id + '</td>' +
                 '<td>' + u.name + '</td>' +
@@ -39,7 +39,7 @@ const renderUsers = (users) => {
                 $.get(urlEdit, function (user, status) {
                     $('#idEdit').val(user.id)
                     $('#nameEdit').val(user.name)
-                    $('#passwordEdit').val(user.password)
+                    // $('#passwordEdit').val(user.password)
                     $('#rolesEdit').val(user.roles)
                 });
 
@@ -54,7 +54,7 @@ const renderUsers = (users) => {
                 $.get(urlDelete, function (user, status) {
                     $('#idDelete').val(user.id)
                     $('#nameDelete').val(user.name)
-                    $('#passwordDelete').val(user.password)
+                    // $('#passwordDelete').val(user.password)
                     $('#rolesDelete').val(user.roles)
                 });
 
@@ -79,7 +79,7 @@ const renderUsers = (users) => {
 
 function show() {
 // GET запрос и заполнение админ таблицы
-    fetch("http://localhost:8081/api/rest/admin")
+    fetch("http://localhost:8081/admin/get_all_users")
         .then(res => res.json())
         .then(data => renderUsers(data))
         .catch(error => console.error(error))

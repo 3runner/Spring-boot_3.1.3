@@ -4,7 +4,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         const $modal = $("#deleteModal")
-        fetch("http://localhost:8081/api/rest/delete/" + $modal.find("#idDelete").val(), {
+        fetch("http://localhost:8081/admin/" + $modal.find("#idDelete").val(), {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json"

@@ -29,7 +29,7 @@ roles.addEventListener('click', () => {
 
 addUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    fetch("http://localhost:8081/api/rest/new", {
+    fetch("http://localhost:8081/admin", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
